@@ -6,7 +6,14 @@ import numpy as np
 import main  # Import the main module for eye tracking functionality
 
 app = Flask(__name__)
-CORS(app)
+# Configure CORS to allow all origins and methods
+CORS(app, resources={
+    r"/*": {
+        "origins": "*",
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type"]
+    }
+})
 
 # Global variables
 cap = None
@@ -133,5 +140,5 @@ def get_status():
     })
 
 if __name__ == '__main__':
-    print("Starting server on http://localhost:5000")
-    app.run(host='localhost', port=5000, debug=True) 
+    print("Starting server on http://0.0.0.0:5000")
+    app.run(host='0.0.0.0', port=5000, debug=True, threaded=True) 
